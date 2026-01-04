@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/x-icon" href="../assets/icons/favicon_main.ico">
+    <base target="_self">
+</head>
+
+<body class="main-content-body">
+    <video autoplay muted loop class="theme-video-background">
+        <source src="../assets/video/dashboard_bg.mp4" type="video/mp4">
+    </video>
+    <div class="main-content-wrapper">
+
+        <!-- Service Drawer Toggle -->
+        <button id="service-toggle" class="service-toggle-btn" title="Open Services">
+            <div style="display: grid; grid-template-columns: repeat(3, 4px); gap: 4px;">
+                <div style="width: 4px; height: 4px; background: currentColor; border-radius: 50%;"></div>
+                <div style="width: 4px; height: 4px; background: currentColor; border-radius: 50%;"></div>
+                <div style="width: 4px; height: 4px; background: currentColor; border-radius: 50%;"></div>
+                <div style="width: 4px; height: 4px; background: currentColor; border-radius: 50%;"></div>
+                <div style="width: 4px; height: 4px; background: currentColor; border-radius: 50%;"></div>
+                <div style="width: 4px; height: 4px; background: currentColor; border-radius: 50%;"></div>
+                <div style="width: 4px; height: 4px; background: currentColor; border-radius: 50%;"></div>
+                <div style="width: 4px; height: 4px; background: currentColor; border-radius: 50%;"></div>
+                <div style="width: 4px; height: 4px; background: currentColor; border-radius: 50%;"></div>
+            </div>
+        </button>
+
+        <!-- Retractable Left Panel Drawer -->
+        <div id="service-drawer" class="left-panel-drawer">
+            <h2 class="services-title">Services</h2>
+            <ul class="services-list">
+                <li class="service-item" onclick="openService('https://copy.sh/v86/?profile=windows95')">
+                    <span class="service-icon">💻</span>
+                    <span class="service-link">Use Windows 95</span>
+                </li>
+                <li class="service-item" onclick="openService('https://play.tetris.com/')">
+                    <span class="service-icon">💻</span>
+                    <span class="service-link">Play Tetris</span>
+                </li>
+                <li class="service-item" onclick="openService('https://www.dogpile.com/')">
+                    <span class="service-icon">🐶</span>
+                    <span class="service-link">Dogpile Search</span>
+                </li>
+                <li class="service-item" onclick="openService('https://yjdoc2.github.io/8086-emulator-web/')">
+                    <span class="service-icon">💾</span>
+                    <span class="service-link">8086 Emulator</span>
+                </li>
+                <li class="service-item" onclick="openService('special/lecture12.html')">
+                    <span class="service-icon">📺</span>
+                    <span class="service-link">Watch Lecture 12</span>
+                </li>
+                <li class="service-item" onclick="openService('special/deadcalc.html')">
+                    <span class="service-icon">🧮</span>
+                    <span class="service-link">Dead Calculator</span>
+                </li>
+                <li class="service-item" onclick="openService('special/3d_models.html')">
+                    <span class="service-icon">🧊</span>
+                    <span class="service-link">View 3D Models</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Right Panel: Google Services (Pop-out) -->
+        <div id="right-panel" class="right-panel collapsed">
+            <button id="toggle-btn" class="panel-toggle-btn" title="Toggle Google Services">
+                <span id="toggle-icon">◀</span>
+            </button>
+            <div class="panel-content">
+                <div class="footer-title">Google Services</div>
+                <div class="footer-icons-wrapper vertical">
+                    <a href="https://earth.google.com/web" target="_blank" class="footer-icon-link"
+                        title="Google Earth">
+                        <img src="../assets/icons/google/Google_Earth_icon.svg" width="30" height="30"
+                            alt="Google Earth" onerror="this.style.display='none'; this.parentElement.innerHTML='🌍';">
+                    </a>
+                    <a href="https://www.google.com" target="_blank" class="footer-icon-link" title="Google Chrome">
+                        <img src="../assets/icons/google/Google_Chrome_icon.svg" width="30" height="30"
+                            alt="Google Chrome" onerror="this.style.display='none'; this.parentElement.innerHTML='🌐';">
+                    </a>
+                    <a href="https://classroom.google.com" target="_blank" class="footer-icon-link"
+                        title="Google Classroom">
+                        <img src="../assets/icons/google/Google_Classroom_Logo.svg" width="30" height="30"
+                            alt="Google Classroom"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='📚';">
+                    </a>
+                    <a href="https://mail.google.com" target="_blank" class="footer-icon-link" title="Gmail">
+                        <img src="../assets/icons/google/Gmail_Icon.svg" width="30" height="30" alt="Gmail"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='📧';">
+                    </a>
+                    <a href="https://www.youtube.com" target="_blank" class="footer-icon-link" title="YouTube">
+                        <img src="../assets/icons/google/YouTube_play_button_icon_(2013–2017).svg" width="30"
+                            height="30" alt="YouTube"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='▶️';">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Widget (Controls audio in Banner frame) -->
+    <div class="audio-widget top-right">
+        <div class="audio-controls">
+            <button id="main-play-pause-btn" class="audio-btn" title="Play/Pause">❚❚</button>
+            <button id="main-mute-btn" class="audio-btn" title="Mute/Unmute">🔊</button>
+            <input type="range" id="main-volume-slider" class="volume-slider" min="0" max="1" step="0.01" value="0.4">
+        </div>
+    </div>
+
+    <!-- Floating Sign Out Button -->
+    <a href="../index.html" target="_top" class="floating-signout" title="Sign Out">
+        Sign Out ⏏
+    </a>
+
+    <script src="../js/main.js"></script>
+</body>
+
+</html>

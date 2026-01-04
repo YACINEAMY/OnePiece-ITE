@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/x-icon" href="../assets/icons/favicon_main.ico">
+    <style>
+        body.banner-body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.85);
+            /* Darker, cleaner background */
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .banner-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100vh;
+            /* Full height of the frame */
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .banner-left,
+        .banner-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+            /* Balance spacing */
+        }
+
+        .banner-right {
+            justify-content: flex-end;
+        }
+
+        .banner-center {
+            text-align: center;
+            flex: 2;
+        }
+
+        .banner-title {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            letter-spacing: 2px;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ccc;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-transform: uppercase;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border-color: #fff;
+        }
+
+        .home-btn {
+            border-color: #4CAF50;
+            /* Green tint for Home */
+            color: #81c784;
+        }
+
+        .home-btn:hover {
+            background: #4CAF50;
+            color: #fff;
+        }
+
+        .signout-btn {
+            border-color: #f44336;
+            /* Red tint for Sign Out */
+            color: #e57373;
+        }
+
+        .signout-btn:hover {
+            background: #f44336;
+            color: #fff;
+        }
+
+        /* Audio Widget Overrides for Banner */
+        /* Audio Widget Overrides for Banner */
+        .audio-widget {
+            position: relative !important;
+            margin: 0;
+            margin-right: 25px;
+            /* Spacing from sign out button */
+            padding: 0;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            top: auto;
+            /* Reset any top positioning */
+            right: auto;
+            /* Reset any right positioning */
+        }
+    </style>
+</head>
+
+<body class="banner-body">
+    <div class="banner-container">
+        <!-- Left: Home Button -->
+        <div class="banner-left">
+            <button onclick="goHome()" class="nav-btn home-btn" title="Close Service & Return to Dashboard">
+                🏠 Home
+            </button>
+        </div>
+
+        <!-- Center: Title -->
+        <div class="banner-center">
+            <h1 class="banner-title">ITE PROJECT DASHBOARD</h1>
+        </div>
+
+        <!-- Right: Audio + Sign Out -->
+        <div class="banner-right">
+            <!-- Audio Widget -->
+            <div class="audio-widget">
+                <div class="audio-controls">
+                    <button id="play-pause-btn" class="audio-btn" title="Play/Pause">❚❚</button>
+                    <button id="mute-btn" class="audio-btn" title="Mute/Unmute">🔊</button>
+                    <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.01"
+                        value="0.4">
+                </div>
+            </div>
+
+            <a href="../index.html" target="_top" class="nav-btn signout-btn" title="Sign Out">
+                Sign Out ⏏
+            </a>
+        </div>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="main-music" autoplay loop>
+        <source src="../assets/audio/dashboard_theme.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="../js/main.js"></script>
+</body>
+
+</html>

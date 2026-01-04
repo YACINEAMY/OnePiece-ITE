@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>3D Models Gallery</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="icon" type="image/x-icon" href="../../assets/icons/favicon_main.ico">
+    <style>
+        body {
+            overflow-y: auto;
+            /* Allow scrolling */
+            height: 100vh;
+            margin: 0;
+            background: radial-gradient(circle at center, #2e1a47 0%, #000000 100%);
+            /* Deep Space/Void background */
+            font-family: 'Inter', sans-serif;
+            color: #fff;
+        }
+
+        /* Animated Background Particles (CSS Only) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(white 1px, transparent 1px),
+                radial-gradient(white 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: 0 0, 25px 25px;
+            opacity: 0.1;
+            z-index: -1;
+            animation: stars 100s linear infinite;
+        }
+
+        @keyframes stars {
+            from {
+                background-position: 0 0, 25px 25px;
+            }
+
+            to {
+                background-position: 1000px 1000px, 1025px 1025px;
+            }
+        }
+
+        .gallery-container {
+            padding: 60px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 1;
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .gallery-title {
+            font-family: 'Pirata One', serif;
+            font-size: 4rem;
+            color: #fff;
+            text-shadow: 0 0 20px #8a2be2;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        .gallery-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            color: #ccc;
+            margin-top: 10px;
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 40px;
+            padding-bottom: 40px;
+        }
+
+        .model-card {
+            background: rgba(20, 20, 30, 0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(138, 43, 226, 0.2);
+            /* Purple tint */
+            border-radius: 20px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Bouncy transition */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            group: hover;
+        }
+
+        .model-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(138, 43, 226, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .model-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .model-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(30, 30, 45, 0.8);
+            border-color: #8a2be2;
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.4);
+        }
+
+        .model-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+            transition: transform 0.3s;
+        }
+
+        .model-card:hover .model-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .model-content {
+            z-index: 2;
+        }
+
+        .model-title {
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .model-desc {
+            font-family: 'Inter', sans-serif;
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .view-btn {
+            margin-top: 20px;
+            padding: 10px 25px;
+            background: transparent;
+            border: 2px solid #8a2be2;
+            color: #fff;
+            border-radius: 50px;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .model-card:hover .view-btn {
+            background: #8a2be2;
+            box-shadow: 0 0 20px #8a2be2;
+        }
+
+        /* Viewer Overlay */
+        .viewer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            display: none;
+            /* Hidden by default */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .viewer-overlay.active {
+            opacity: 1;
+        }
+
+        .viewer-container {
+            width: 95%;
+            height: 85%;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(138, 43, 226, 0.4);
+            /* Purple glow */
+            border: 1px solid #555;
+            position: relative;
+        }
+
+        .viewer-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .close-btn {
+            margin-top: 25px;
+            padding: 12px 40px;
+            background: transparent;
+            color: #ff3b30;
+            border: 2px solid #ff3b30;
+            border-radius: 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-btn:hover {
+            background: #ff3b30;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(255, 59, 48, 0.6);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="gallery-container">
+        <div class="gallery-header">
+            <h1 class="gallery-title">Simulation Gallery</h1>
+            <div class="gallery-subtitle">Interact with High-Fidelity 3D Models</div>
+        </div>
+
+        <div class="models-grid" id="modelsGrid">
+            <!-- Cards will be injected here JS -->
+        </div>
+    </div>
+
+    <!-- Viewer Overlay -->
+    <div class="viewer-overlay" id="viewerOverlay">
+        <div class="viewer-container" id="iframeContainer">
+            <!-- Iframe injected here -->
+        </div>
+        <button class="close-btn" onclick="closeViewer()">
+            <span>✖</span> Close Simulation
+        </button>
+    </div>
+
+    <script>
+        const models = [
+            {
+                title: "One Piece World Globe",
+                desc: "Explore the geography of the Grand Line.",
+                icon: "🌍",
+                src: "https://sketchfab.com/models/22760589a2ea41e0aef4a4afabf8167e/embed?autostart=1&preload=1&ui_theme=dark&dnt=1"
+            },
+            {
+                title: "Pixel City (Low-Fi)",
+                desc: "A stylized cyber-city environment.",
+                icon: "🏙️",
+                src: "https://sketchfab.com/models/9363665ee7b94a16b6aba18a89d70be9/embed?autostart=1&ui_theme=dark&dnt=1"
+            },
+            {
+                title: "Little Pirate's Island",
+                desc: "A charming handcrafted island scene.",
+                icon: "🏝️",
+                src: "https://sketchfab.com/models/6d7fc2df62e7415aae9585f258f5efb8/embed?autostart=1&dnt=1"
+            },
+            {
+                title: "Monkey D. Luffy",
+                desc: "The future King of the Pirates.",
+                icon: "👒",
+                src: "https://sketchfab.com/models/3d9fb8bd86854aa69ee6f69fcbeaca51/embed?autostart=1&dnt=1"
+            },
+            {
+                title: "Kaido (Dragon Form)",
+                desc: "The strongest creature in the world.",
+                icon: "🐉",
+                src: "https://sketchfab.com/models/d448ffd652104bb396ec588bbca7ab49/embed?autostart=1&dnt=1"
+            },
+            {
+                title: "Going Merry",
+                desc: "The beloved first ship of the Straw Hats.",
+                icon: "🚢",
+                src: "https://sketchfab.com/models/71b2c74e7c6f4a748dfcf8e1bd560676/embed?autostart=1&dnt=1"
+            },
+            {
+                title: "Straw Hat Jolly Roger",
+                desc: "The symbol of freedom and adventure.",
+                icon: "☠️",
+                src: "https://sketchfab.com/models/668edfafc5f64980a04a1fc1f85a452b/embed?autostart=1&dnt=1"
+            }
+        ];
+
+        const grid = document.getElementById('modelsGrid');
+        const overlay = document.getElementById('viewerOverlay');
+        const container = document.getElementById('iframeContainer');
+
+        // Render Grid
+        models.forEach(model => {
+            const card = document.createElement('div');
+            card.className = 'model-card';
+            card.innerHTML = `
+                <div class="model-icon">${model.icon}</div>
+                <div class="model-content">
+                    <div class="model-title">${model.title}</div>
+                    <div class="model-desc">${model.desc}</div>
+                </div>
+                <button class="view-btn">Initialize</button>
+            `;
+            card.onclick = () => openViewer(model.src, model.title);
+            grid.appendChild(card);
+        });
+
+        function openViewer(src, title) {
+            container.innerHTML = `
+                <iframe 
+                    title="${title}" 
+                    frameborder="0" 
+                    allowfullscreen 
+                    mozallowfullscreen="true" 
+                    webkitallowfullscreen="true" 
+                    allow="autoplay; fullscreen; xr-spatial-tracking" 
+                    xr-spatial-tracking 
+                    execution-while-out-of-viewport 
+                    execution-while-not-rendered 
+                    web-share 
+                    src="${src}">
+                </iframe>
+            `;
+            overlay.style.display = 'flex';
+            // Slight delay for fade-in
+            setTimeout(() => overlay.classList.add('active'), 10);
+        }
+
+        function closeViewer() {
+            overlay.classList.remove('active');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                container.innerHTML = ''; // Stop video/processing
+            }, 300);
+        }
+    </script>
+</body>
+
+</html>

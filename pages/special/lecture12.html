@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lecture 12</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="icon" type="image/x-icon" href="../../assets/icons/favicon_main.ico">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: radial-gradient(circle at center, #2e1a47 0%, #000000 100%);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Animated Background Particles (CSS Only) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(white 1px, transparent 1px),
+                radial-gradient(white 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: 0 0, 25px 25px;
+            opacity: 0.1;
+            z-index: -1;
+            animation: stars 100s linear infinite;
+        }
+
+        @keyframes stars {
+            from {
+                background-position: 0 0, 25px 25px;
+            }
+
+            to {
+                background-position: 1000px 1000px, 1025px 1025px;
+            }
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-family: 'Pirata One', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 0 10px #8a2be2;
+        }
+
+        iframe {
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content-wrapper">
+        <h1>ITE Lecture 12</h1>
+        <iframe width="960" height="540" src="https://www.youtube.com/embed/-ma-4V1Q0Gc" title="Lecture 12"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+</body>
+
+</html>
